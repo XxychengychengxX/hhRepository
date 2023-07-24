@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.hhrepository.mapper.AuthInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.project.hhrepository.entity.AuthInfo">
+        <id column="auth_id" property="authId" />
+        <result column="parent_id" property="parentId" />
+        <result column="auth_name" property="authName" />
+        <result column="auth_desc" property="authDesc" />
+        <result column="auth_grade" property="authGrade" />
+        <result column="auth_type" property="authType" />
+        <result column="auth_url" property="authUrl" />
+        <result column="auth_code" property="authCode" />
+        <result column="auth_order" property="authOrder" />
+        <result column="auth_state" property="authState" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        auth_id, parent_id, auth_name, auth_desc, auth_grade, auth_type, auth_url, auth_code, auth_order, auth_state, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="findAuthByUid" resultType="com.project.hhrepository.entity.Auth">
+        select t1.*
+        from auth_info t1,
+             user_role t2,
+             role_auth t3
+        where t2.role_id = t3.role_id
+          and t3.auth_id = t1.auth_id
+          and t1.auth_type != 3
+          and t1.auth_state = 1
+          and t2.user_id = #{userId}
+    </select>
+
+</mapper>

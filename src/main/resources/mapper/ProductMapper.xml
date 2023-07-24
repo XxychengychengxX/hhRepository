@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.hhrepository.mapper.ProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.project.hhrepository.entity.Product">
+        <id column="product_id" property="productId" />
+        <result column="store_id" property="storeId" />
+        <result column="brand_id" property="brandId" />
+        <result column="product_name" property="productName" />
+        <result column="product_num" property="productNum" />
+        <result column="product_invent" property="productInvent" />
+        <result column="type_id" property="typeId" />
+        <result column="supply_id" property="supplyId" />
+        <result column="place_id" property="placeId" />
+        <result column="unit_id" property="unitId" />
+        <result column="introduce" property="introduce" />
+        <result column="up_down_state" property="upDownState" />
+        <result column="in_price" property="inPrice" />
+        <result column="sale_price" property="salePrice" />
+        <result column="mem_price" property="memPrice" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_by" property="updateBy" />
+        <result column="imgs" property="imgs" />
+        <result column="product_date" property="productDate" />
+        <result column="supp_date" property="suppDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        product_id, store_id, brand_id, product_name, product_num, product_invent, type_id, supply_id, place_id, unit_id, introduce, up_down_state, in_price, sale_price, mem_price, create_time, update_time, create_by, update_by, imgs, product_date, supp_date
+    </sql>
+
+</mapper>
