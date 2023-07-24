@@ -92,7 +92,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public Result logout(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+    public Result logout(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String toke) {
         //直接删除redisTemplate中的值即可
         stringRedisTemplate.delete("token");
 
