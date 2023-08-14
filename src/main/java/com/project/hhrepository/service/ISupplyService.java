@@ -1,7 +1,9 @@
 package com.project.hhrepository.service;
 
-import com.project.hhrepository.entity.Supply;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.project.hhrepository.entity.Supply;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISupplyService extends IService<Supply> {
 
+    /**
+     * 获取所有供应商信息
+     *
+     * @return 所有供应商信息的list集合
+     */
+    List<Supply> getSupplyList();
 }

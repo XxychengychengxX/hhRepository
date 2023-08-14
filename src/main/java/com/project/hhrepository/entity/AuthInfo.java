@@ -1,12 +1,10 @@
 package com.project.hhrepository.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -69,8 +67,19 @@ public class AuthInfo implements Serializable {
     @TableField("update_by")
     private Integer updateBy;
 
+    //追加的List<AuthInfo>集合属性 -- 用于存储当前权限(菜单)的子级权限(菜单)
+    @TableField(exist = false)
+    private List<AuthInfo> childAuthInfo;
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    public List<AuthInfo> getChildAuth() {
+        return childAuthInfo;
+    }
+
+    public void setChildAuth(List<AuthInfo> childAuthInfo) {
+        this.childAuthInfo = childAuthInfo;
+    }
 
     public Integer getAuthId() {
         return authId;
@@ -79,6 +88,7 @@ public class AuthInfo implements Serializable {
     public void setAuthId(Integer authId) {
         this.authId = authId;
     }
+
     public Integer getParentId() {
         return parentId;
     }
@@ -86,6 +96,7 @@ public class AuthInfo implements Serializable {
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
+
     public String getAuthName() {
         return authName;
     }
@@ -93,6 +104,7 @@ public class AuthInfo implements Serializable {
     public void setAuthName(String authName) {
         this.authName = authName;
     }
+
     public String getAuthDesc() {
         return authDesc;
     }
@@ -100,6 +112,7 @@ public class AuthInfo implements Serializable {
     public void setAuthDesc(String authDesc) {
         this.authDesc = authDesc;
     }
+
     public Integer getAuthGrade() {
         return authGrade;
     }
@@ -107,6 +120,7 @@ public class AuthInfo implements Serializable {
     public void setAuthGrade(Integer authGrade) {
         this.authGrade = authGrade;
     }
+
     public String getAuthType() {
         return authType;
     }
@@ -114,6 +128,7 @@ public class AuthInfo implements Serializable {
     public void setAuthType(String authType) {
         this.authType = authType;
     }
+
     public String getAuthUrl() {
         return authUrl;
     }
@@ -121,6 +136,7 @@ public class AuthInfo implements Serializable {
     public void setAuthUrl(String authUrl) {
         this.authUrl = authUrl;
     }
+
     public String getAuthCode() {
         return authCode;
     }
@@ -128,6 +144,7 @@ public class AuthInfo implements Serializable {
     public void setAuthCode(String authCode) {
         this.authCode = authCode;
     }
+
     public Integer getAuthOrder() {
         return authOrder;
     }
@@ -135,6 +152,7 @@ public class AuthInfo implements Serializable {
     public void setAuthOrder(Integer authOrder) {
         this.authOrder = authOrder;
     }
+
     public String getAuthState() {
         return authState;
     }
@@ -142,6 +160,7 @@ public class AuthInfo implements Serializable {
     public void setAuthState(String authState) {
         this.authState = authState;
     }
+
     public Integer getCreateBy() {
         return createBy;
     }
@@ -149,6 +168,7 @@ public class AuthInfo implements Serializable {
     public void setCreateBy(Integer createBy) {
         this.createBy = createBy;
     }
+
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -156,6 +176,7 @@ public class AuthInfo implements Serializable {
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
+
     public Integer getUpdateBy() {
         return updateBy;
     }
@@ -163,6 +184,7 @@ public class AuthInfo implements Serializable {
     public void setUpdateBy(Integer updateBy) {
         this.updateBy = updateBy;
     }
+
     public LocalDateTime getUpdateTime() {
         return updateTime;
     }
@@ -173,21 +195,6 @@ public class AuthInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "AuthInfo{" +
-            "authId=" + authId +
-            ", parentId=" + parentId +
-            ", authName=" + authName +
-            ", authDesc=" + authDesc +
-            ", authGrade=" + authGrade +
-            ", authType=" + authType +
-            ", authUrl=" + authUrl +
-            ", authCode=" + authCode +
-            ", authOrder=" + authOrder +
-            ", authState=" + authState +
-            ", createBy=" + createBy +
-            ", createTime=" + createTime +
-            ", updateBy=" + updateBy +
-            ", updateTime=" + updateTime +
-        "}";
+        return "AuthInfo{" + "authId=" + authId + ", parentId=" + parentId + ", authName=" + authName + ", authDesc=" + authDesc + ", authGrade=" + authGrade + ", authType=" + authType + ", authUrl=" + authUrl + ", authCode=" + authCode + ", authOrder=" + authOrder + ", authState=" + authState + ", createBy=" + createBy + ", createTime=" + createTime + ", updateBy=" + updateBy + ", updateTime=" + updateTime + "}";
     }
 }

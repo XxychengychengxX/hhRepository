@@ -13,22 +13,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 @Configuration
-public class ServletConfig {
+public class ServletFilterConfig {
     @Resource
     StringRedisTemplate stringRedisTemplate;
 
     /*配置FilterRegistration的bean对象*/
-    @Bean
+    @Bean("filterRegistration")
     public FilterRegistrationBean<Filter> filterRegistrationBean() {
-        FilterRegistrationBean<Filter> filterFilterRegistrationBean =
-                new FilterRegistrationBean<>();
+        FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
 
         //这里要进行手动注入
         LoginCheckFilter loginCheckFilter = new LoginCheckFilter();
-        loginCheckFilter.setRedisTemplate(stringRedisTemplate);
+        loginCheckFilter.setStringRedisTemplate(stringRedisTemplate);
 
         filterFilterRegistrationBean.setFilter(loginCheckFilter);
-
+        //设置拦截所有请求
+        filterFilterRegistrationBean.addUrlPatterns("/*");
         return filterFilterRegistrationBean;
     }
+
 }

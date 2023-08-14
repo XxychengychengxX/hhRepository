@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.hhrepository.mapper.InStoreMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.project.hhrepository.entity.InStore">
+        <id column="ins_id" property="insId" />
+        <result column="store_id" property="storeId" />
+        <result column="product_id" property="productId" />
+        <result column="in_num" property="inNum" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="is_in" property="isIn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ins_id, store_id, product_id, in_num, create_by, create_time, is_in
+    </sql>
+    <select id="selectInStoreCount" resultType="java.lang.Integer">
+        select count(*)
+        from in_store t1, store t2, product t3, user_info t4
+        where t1.store_id = t2.store_id and t1.product_id = t3.product_id
+        and t1.create_by = t4.user_id
+
+        <if test="storeId != null">
+            and t1.store_id = #{storeId}
+        </if>
+        <if test="productName != null and productName != ''">
+            and t3.product_name like concat('%', #{productName}, '%')
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and t1.create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and t1.create_time &lt;= #{endTime}
+        </if>
+    </select>
+
+
+    <select id="selectInStorePage" resultType="com.project.hhrepository.entity.InStore">
+        select t1.*, t2.store_name, t3.product_name, t3.in_price,
+        t4.user_code
+        from in_store t1, store t2, product t3, user_info t4
+        where t1.store_id = t2.store_id and t1.product_id = t3.product_id
+        and t1.create_by = t4.user_id
+
+        <if test="inStore.storeId != null">
+            and t1.store_id = #{inStore.storeId}
+        </if>
+        <if test="inStore.productName != null and inStore.productName != ''">
+            and t3.product_name like concat('%', #{inStore.productName}, '%')
+        </if>
+        <if test="inStore.startTime != null and inStore.startTime != ''">
+            and t1.create_time &gt;= #{inStore.startTime}
+        </if>
+        <if test="inStore.endTime != null and inStore.endTime != ''">
+            and t1.create_time &lt;= #{inStore.endTime}
+        </if>
+
+        order by t1.create_time desc
+        limit #{page.limitIndex}, #{page.pageSize}
+    </select>
+
+</mapper>

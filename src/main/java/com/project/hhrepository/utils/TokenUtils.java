@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.project.hhrepository.exception.BusinessException;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -33,23 +33,21 @@ public class TokenUtils {
     @Value("${warehouse.expire-time}")
     private static int expireTime;
     //注入redis模板
-    @Autowired
+    @Resource
     private StringRedisTemplate stringRedisTemplate;
 
     //生成jwt Token 的方法
     private String sign(CurrentUser currentUser, String securityKey) {
-        String token =
-                JWT.create().
-                        //token载体中有效的信息
-                                withClaim(CLAIM_NAME_USERID, currentUser.getUserId()).
-                        withClaim(CLAIM_NAME_USERCODE, currentUser.getUserCode()).
-                        withClaim(CLAIM_NAME_USERNAME, currentUser.getUserName()).
-                        //token的颁发时间
-                                withIssuedAt(new Date())//发行时间
-                        //token的过期时间
-                        .withExpiresAt(new Date(System.currentTimeMillis() + expireTime * 1000L))
-                        //有效时间
-                        .sign(Algorithm.HMAC256(securityKey));
+        String token = JWT.create().
+                //token载体中有效的信息
+                        withClaim(CLAIM_NAME_USERID, currentUser.getUserId()).withClaim(CLAIM_NAME_USERCODE,
+                        currentUser.getUserCode()).withClaim(CLAIM_NAME_USERNAME, currentUser.getUserName()).
+                //token的颁发时间
+                        withIssuedAt(new Date())//发行时间
+                //token的过期时间
+                .withExpiresAt(new Date(System.currentTimeMillis() + expireTime * 1000L))
+                //有效时间
+                .sign(Algorithm.HMAC256(securityKey));
         return token;
     }
 
@@ -60,8 +58,10 @@ public class TokenUtils {
         //生成token
         String token = sign(currentUser, password);
         //将token保存到redis中,并设置token在redis中的过期时间,过期时间与jwt的时间保存一致
+        //这里我使用expiretime就会失败,我也不知道为什么
 
-        stringRedisTemplate.opsForValue().set(token, token, expireTime, TimeUnit.SECONDS);
+        //stringRedisTemplate.opsForValue().set(token, token,expireTime , TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(token, token, 2000, TimeUnit.SECONDS);
         return token;
     }
 

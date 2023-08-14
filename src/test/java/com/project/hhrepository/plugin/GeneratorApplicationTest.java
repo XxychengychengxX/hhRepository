@@ -23,8 +23,8 @@ public class GeneratorApplicationTest {
     private static final String projectName = "hhrepository";
     // 基础信息配置
     // 数据库连接字符
-    private static final String URL = "jdbc:mysql://localhost:3306/" + databaseName +
-            "?useUnicode=true&serverTimezone=UTC&useSSL=false&characterEncoding=utf8";
+    private static final String URL = "jdbc:mysql://localhost:3306/" + databaseName + "?useUnicode=true" +
+            "&serverTimezone=UTC&useSSL=false&characterEncoding=utf8";
     // 数据库用户名
     private static final String USERNAME = "root";
     // 数据库密码
@@ -77,8 +77,7 @@ public class GeneratorApplicationTest {
                         // 指定时间策略。
                         .dateType(DateType.TIME_PACK)
                         // 注释时间策略。
-                        .commentDate("yyyy-MM-dd")
-                )
+                        .commentDate("yyyy-MM-dd"))
 
                 // 2. 包配置
                 .packageConfig((scanner, builder) -> builder
@@ -86,12 +85,11 @@ public class GeneratorApplicationTest {
                         .parent(parentPackageName)
                         //.moduleName(scanner.apply("请输入模块名："))
                         // mapper.xml 文件的路径。单模块下，其他文件路径默认即可。
-                        .pathInfo(Collections.singletonMap(OutputFile.xml, mapperXmlPath))
-                )
+                        .pathInfo(Collections.singletonMap(OutputFile.xml, mapperXmlPath)))
 
                 // 3. 策略配置
                 .strategyConfig((scanner, builder) -> builder.addInclude(getTables(scanner.apply(
-                                "请输入表名，多个英文逗号分隔？生成所有表，请输入[all]：")))
+                        "请输入表名，多个英文逗号分隔？生成所有表，请输入[all]：")))
                         // 阶段1：Entity实体类策略配置
                         .entityBuilder()
                         // 开启生成实体时生成字段注解。
@@ -125,9 +123,7 @@ public class GeneratorApplicationTest {
                         // 会在控制类中加[@RestController]注解。
                         .enableRestStyle()
                         // 开启驼峰转连字符
-                        .enableHyphenStyle()
-                        .build()
-                )
+                        .enableHyphenStyle().build())
 
                 // 4. 模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker
                 //.templateEngine(new BeetlTemplateEngine())
@@ -145,18 +141,17 @@ public class GeneratorApplicationTest {
         // 指定模块名，用于生成的java文件的import。
         String moduleName = scanner("请输入模块名：");
         // 六个文件的路径。多模块项目下，一般来说每个文件的路径都是不同的（根据项目实际，可能在不同的模块下）。
-        String entityPath = projectRootPath + "/project-entity/src/main/java/com/yourdomain" +
-                "/projectname/entity/" + moduleName;
-        String mapperPath = projectRootPath + "/project-dao/src/main/java/com/yourdomain" +
-                "/projectname/mapper/" + moduleName;
-        String mapperXmlPath =
-                projectRootPath + "/project-dao/src/main/resources/mapper/" + moduleName;
-        String servicePath = projectRootPath + "/project-service/src/main/java/com/yourdomain" +
-                "/projectname/service/" + moduleName;
-        String serviceImplPath = projectRootPath + "/project-service/src/main/java/com/yourdomain" +
-                "/projectname/service/" + moduleName + "/impl";
-        String controllerPath = projectRootPath + "/project-controller/src/main/java/com" +
-                "/yourdomain/projectname/controller/" + moduleName;
+        String entityPath =
+                projectRootPath + "/project-entity/src/main/java/com/yourdomain" + "/projectname/entity/" + moduleName;
+        String mapperPath =
+                projectRootPath + "/project-dao/src/main/java/com/yourdomain" + "/projectname/mapper/" + moduleName;
+        String mapperXmlPath = projectRootPath + "/project-dao/src/main/resources/mapper/" + moduleName;
+        String servicePath = projectRootPath + "/project-service/src/main/java/com/yourdomain" + "/projectname" +
+                "/service/" + moduleName;
+        String serviceImplPath =
+                projectRootPath + "/project-service/src/main/java/com/yourdomain" + "/projectname" + "/service/" + moduleName + "/impl";
+        String controllerPath =
+                projectRootPath + "/project-controller/src/main/java/com" + "/yourdomain/projectname" + "/controller" + "/" + moduleName;
         // 关于以上写法的解释：
         // --- 假设我们的项目有四个模块：project-entity、project-dao、project-service、project-controller
         // --- project-entity 的包路径：com.yourdomain.projectname.eneity，
@@ -187,8 +182,7 @@ public class GeneratorApplicationTest {
                         // 指定时间策略。
                         .dateType(DateType.TIME_PACK)
                         // 注释时间策略。
-                        .commentDate("yyyy-MM-dd")
-                )
+                        .commentDate("yyyy-MM-dd"))
 
                 // 2. 包配置
                 .packageConfig((scanner, builder) -> builder
@@ -197,34 +191,26 @@ public class GeneratorApplicationTest {
                         .parent(parentPackageName)
                         // 输入模块名。此模块名会在下面的几个包名前加。多模块项目，请根据实际选择是否添加。
                         // .moduleName(moduleName)
-                        .entity("entity." + moduleName)
-                        .mapper("mapper." + moduleName)
-                        .service("service." + moduleName)
-                        .serviceImpl("service." + moduleName + ".impl")
-                        .controller("controller." + moduleName)
-                        .other("other")
+                        .entity("entity." + moduleName).mapper("mapper." + moduleName).service("service." + moduleName).serviceImpl("service." + moduleName + ".impl").controller("controller." + moduleName).other("other")
                         // 阶段2：所有文件的生成路径配置
-                        .pathInfo(
-                                new HashMap<OutputFile, String>() {{
-                                    // 实体类的保存路径
-                                    put(OutputFile.entity, entityPath);
-                                    // mapper接口的保存路径
-                                    put(OutputFile.mapper, mapperPath);
-                                    // mapper.xml文件的保存路径
-                                    put(OutputFile.xml, mapperXmlPath);
-                                    // service层接口的保存路径
-                                    put(OutputFile.service, servicePath);
-                                    // service层接口实现类的保存路径
-                                    put(OutputFile.serviceImpl, serviceImplPath);
-                                    // 控制类的保存路径
-                                    put(OutputFile.controller, controllerPath);
-                                }}
-                        )
-                )
+                        .pathInfo(new HashMap<OutputFile, String>() {{
+                            // 实体类的保存路径
+                            put(OutputFile.entity, entityPath);
+                            // mapper接口的保存路径
+                            put(OutputFile.mapper, mapperPath);
+                            // mapper.xml文件的保存路径
+                            put(OutputFile.xml, mapperXmlPath);
+                            // service层接口的保存路径
+                            put(OutputFile.service, servicePath);
+                            // service层接口实现类的保存路径
+                            put(OutputFile.serviceImpl, serviceImplPath);
+                            // 控制类的保存路径
+                            put(OutputFile.controller, controllerPath);
+                        }}))
 
                 // 3. 策略配置【请仔细阅读每一行，根据项目实际项目需求，修改、增删！！！】
                 .strategyConfig((scanner, builder) -> builder.addInclude(getTables(scanner.apply(
-                                "请输入表名，多个英文逗号分隔？生成所有表，请输入[all]：")))
+                        "请输入表名，多个英文逗号分隔？生成所有表，请输入[all]：")))
                         // 阶段1：Entity实体类策略配置
                         .entityBuilder()
                         // 设置父类。会在生成的实体类名后：extends BaseEntity
@@ -324,8 +310,7 @@ public class GeneratorApplicationTest {
                         .enableHyphenStyle()
 
                         // 最后：构建
-                        .build()
-                )
+                        .build())
 
                 //模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker
                 //.templateEngine(new BeetlTemplateEngine())
@@ -337,8 +322,7 @@ public class GeneratorApplicationTest {
 
     // 处理 all 情况
     protected static List<String> getTables(String tables) {
-        return "all".equals(tables) ? Collections.emptyList() : Arrays.asList(tables.split(
-                ","));
+        return "all".equals(tables) ? Collections.emptyList() : Arrays.asList(tables.split(","));
     }
 
     /**

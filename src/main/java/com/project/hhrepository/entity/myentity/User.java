@@ -1,4 +1,4 @@
-package com.project.hhrepository.entity;
+package com.project.hhrepository.entity.myentity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

@@ -55,6 +55,12 @@
 
         <!--以下是自己要的依赖-->
 
+        <!--common-io模块-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
         <!-- 关于jwt token的依赖 -->
         <!--<dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -138,9 +144,16 @@
             <version>3.5.2</version>
         </dependency>
 
+        <!--加入devtools加快服务器重启-->
+       <!-- <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+-->
     </dependencies>
 
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -155,6 +168,33 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.yaml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.yaml</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>static/**/*.png</include>
+                    <include>static/**/*.jpg</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
+
     </build>
 
 </project>

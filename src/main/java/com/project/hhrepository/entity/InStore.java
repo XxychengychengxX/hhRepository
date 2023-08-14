@@ -1,11 +1,9 @@
 package com.project.hhrepository.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -44,6 +42,19 @@ public class InStore implements Serializable {
      */
     @TableField("is_in")
     private String isIn;
+    //-----------------追加的属性--------------------
+    @TableField(exist = false)
+    private String productName;//商品名称
+    @TableField(exist = false)
+    private String startTime;//起始时间
+    @TableField(exist = false)
+    private String endTime;//结束时间
+    @TableField(exist = false)
+    private String storeName;//仓库名称
+    @TableField(exist = false)
+    private String userCode;//创建入库单的用户的名称
+    @TableField(exist = false)
+    private BigDecimal inPrice;//商品入库价格
 
     public Integer getInsId() {
         return insId;
@@ -52,6 +63,7 @@ public class InStore implements Serializable {
     public void setInsId(Integer insId) {
         this.insId = insId;
     }
+
     public Integer getStoreId() {
         return storeId;
     }
@@ -59,6 +71,7 @@ public class InStore implements Serializable {
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
+
     public Integer getProductId() {
         return productId;
     }
@@ -66,6 +79,7 @@ public class InStore implements Serializable {
     public void setProductId(Integer productId) {
         this.productId = productId;
     }
+
     public Integer getInNum() {
         return inNum;
     }
@@ -73,6 +87,7 @@ public class InStore implements Serializable {
     public void setInNum(Integer inNum) {
         this.inNum = inNum;
     }
+
     public Integer getCreateBy() {
         return createBy;
     }
@@ -80,6 +95,7 @@ public class InStore implements Serializable {
     public void setCreateBy(Integer createBy) {
         this.createBy = createBy;
     }
+
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -87,6 +103,7 @@ public class InStore implements Serializable {
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
+
     public String getIsIn() {
         return isIn;
     }
@@ -95,16 +112,56 @@ public class InStore implements Serializable {
         this.isIn = isIn;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public BigDecimal getInPrice() {
+        return inPrice;
+    }
+
+    public void setInPrice(BigDecimal inPrice) {
+        this.inPrice = inPrice;
+    }
+
     @Override
     public String toString() {
-        return "InStore{" +
-            "insId=" + insId +
-            ", storeId=" + storeId +
-            ", productId=" + productId +
-            ", inNum=" + inNum +
-            ", createBy=" + createBy +
-            ", createTime=" + createTime +
-            ", isIn=" + isIn +
-        "}";
+        return "InStore{" + "insId=" + insId + ", storeId=" + storeId + ", productId=" + productId + ", inNum=" + inNum + ", createBy=" + createBy + ", createTime=" + createTime + ", isIn=" + isIn + "}";
     }
 }

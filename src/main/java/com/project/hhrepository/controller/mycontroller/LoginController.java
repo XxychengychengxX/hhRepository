@@ -17,6 +17,7 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
@@ -26,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
+@Transactional
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:9988"})
 public class LoginController {
 
     @Resource
@@ -35,6 +38,8 @@ public class LoginController {
 
     @Resource
     TokenUtils tokenUtils;
+
+    //验证码producer
     @Resource(name = "captchaProducer")
     private Producer producer;
     @Resource
@@ -48,8 +53,8 @@ public class LoginController {
         String text = producer.createText();
         //使用验证码文本生成验证码图片 -- BufferedImage对象就代表生成验证码的图片，在内存中
         BufferedImage image = producer.createImage(text);
-
-        stringRedisTemplate.opsForValue().set(text, "", 60 * 30, TimeUnit.SECONDS);
+        //设置该验证码5分钟过期
+        stringRedisTemplate.opsForValue().set(text, "", 300, TimeUnit.SECONDS);
 
         //设置相应的格式
         response.setContentType("image/jpeg");
@@ -86,9 +91,9 @@ public class LoginController {
         //获取当前登录用户id
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
         int userId = currentUser.getUserId();
-
+        Result ok = Result.ok(authInfoService.getAuthTreeByUid(userId));
         //执行业务并返回
-        return Result.ok(authInfoService.getAuthTreeByUid(userId));
+        return ok;
     }
 
     @PostMapping("/logout")

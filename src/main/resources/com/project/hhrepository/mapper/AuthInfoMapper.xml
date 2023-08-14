@@ -24,8 +24,11 @@
     <sql id="Base_Column_List">
         auth_id, parent_id, auth_name, auth_desc, auth_grade, auth_type, auth_url, auth_code, auth_order, auth_state, create_by, create_time, update_by, update_time
     </sql>
-    <select id="findAuthByUid" resultType="com.project.hhrepository.entity.Auth">
-        select t1.*
+
+
+    <select id="getAuthByUid" resultType="com.project.hhrepository.entity.AuthInfo">
+
+        select distinct t1.*
         from auth_info t1,
              user_role t2,
              role_auth t3
@@ -35,5 +38,20 @@
           and t1.auth_state = 1
           and t2.user_id = #{userId}
     </select>
+    <select id="getAuthTree" resultType="com.project.hhrepository.entity.AuthInfo">
 
+
+
+
+
+    </select>
+    <!--
+        1. t2.user_id = #{userId} 首先选出当前登录用户的userId的user_role表
+        2. t2.role_id = t3.role_id 是二表联查,将userInfo中当前角色id对应的roleId获取,例如admin登录,admin的userId为1,
+            则获取到他的roleId为1
+        3. t3.auth_id = t1.auth_id 将角色权限表与权限信息表(只记录子父权限的表)联合查询,可以查询出一个role所具有的权限
+            例如roleId 为 1 的超级管理员所具有的权限就是   很多很多 然后在根据查找出来的auth_ID 即可确认权限
+        4. t1.auth_state = 1 auth_state为启用
+        5. t1.auth_type != 3 3是按钮,不应该出现在系统管理树
+    -->
 </mapper>

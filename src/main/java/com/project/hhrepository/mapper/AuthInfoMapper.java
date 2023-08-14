@@ -1,9 +1,9 @@
 package com.project.hhrepository.mapper;
 
-import com.project.hhrepository.entity.Auth;
-import com.project.hhrepository.entity.AuthInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.project.hhrepository.entity.AuthInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,5 +18,8 @@ import java.util.List;
 @Mapper
 public interface AuthInfoMapper extends BaseMapper<AuthInfo> {
 
-    List<Auth> findAuthByUid(int userID);
+    List<AuthInfo> getAuthByUid(@Param("userId") int userId);
+
+
+    List<AuthInfo> getAuthTree();
 }

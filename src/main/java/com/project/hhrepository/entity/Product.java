@@ -1,13 +1,12 @@
 package com.project.hhrepository.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -70,10 +69,12 @@ public class Product implements Serializable {
     @TableField("mem_price")
     private BigDecimal memPrice;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     @TableField("create_by")
@@ -85,11 +86,17 @@ public class Product implements Serializable {
     @TableField("imgs")
     private String imgs;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    //@JSONField(format = "yyyy-MM-dd")
     @TableField("product_date")
-    private LocalDateTime productDate;
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date productDate;
 
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    //@JSONField(format = "yyyy-MM-dd")
     @TableField("supp_date")
-    private LocalDateTime suppDate;
+    private Date suppDate;
 
     public Integer getProductId() {
         return productId;
@@ -98,6 +105,7 @@ public class Product implements Serializable {
     public void setProductId(Integer productId) {
         this.productId = productId;
     }
+
     public Integer getStoreId() {
         return storeId;
     }
@@ -105,6 +113,7 @@ public class Product implements Serializable {
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
+
     public Integer getBrandId() {
         return brandId;
     }
@@ -112,6 +121,7 @@ public class Product implements Serializable {
     public void setBrandId(Integer brandId) {
         this.brandId = brandId;
     }
+
     public String getProductName() {
         return productName;
     }
@@ -119,6 +129,7 @@ public class Product implements Serializable {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
     public String getProductNum() {
         return productNum;
     }
@@ -126,6 +137,7 @@ public class Product implements Serializable {
     public void setProductNum(String productNum) {
         this.productNum = productNum;
     }
+
     public Integer getProductInvent() {
         return productInvent;
     }
@@ -133,6 +145,7 @@ public class Product implements Serializable {
     public void setProductInvent(Integer productInvent) {
         this.productInvent = productInvent;
     }
+
     public Integer getTypeId() {
         return typeId;
     }
@@ -140,6 +153,7 @@ public class Product implements Serializable {
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
+
     public Integer getSupplyId() {
         return supplyId;
     }
@@ -147,6 +161,7 @@ public class Product implements Serializable {
     public void setSupplyId(Integer supplyId) {
         this.supplyId = supplyId;
     }
+
     public Integer getPlaceId() {
         return placeId;
     }
@@ -154,6 +169,7 @@ public class Product implements Serializable {
     public void setPlaceId(Integer placeId) {
         this.placeId = placeId;
     }
+
     public Integer getUnitId() {
         return unitId;
     }
@@ -161,6 +177,7 @@ public class Product implements Serializable {
     public void setUnitId(Integer unitId) {
         this.unitId = unitId;
     }
+
     public String getIntroduce() {
         return introduce;
     }
@@ -168,6 +185,7 @@ public class Product implements Serializable {
     public void setIntroduce(String introduce) {
         this.introduce = introduce;
     }
+
     public String getUpDownState() {
         return upDownState;
     }
@@ -175,6 +193,7 @@ public class Product implements Serializable {
     public void setUpDownState(String upDownState) {
         this.upDownState = upDownState;
     }
+
     public BigDecimal getInPrice() {
         return inPrice;
     }
@@ -182,6 +201,7 @@ public class Product implements Serializable {
     public void setInPrice(BigDecimal inPrice) {
         this.inPrice = inPrice;
     }
+
     public BigDecimal getSalePrice() {
         return salePrice;
     }
@@ -189,6 +209,7 @@ public class Product implements Serializable {
     public void setSalePrice(BigDecimal salePrice) {
         this.salePrice = salePrice;
     }
+
     public BigDecimal getMemPrice() {
         return memPrice;
     }
@@ -196,6 +217,7 @@ public class Product implements Serializable {
     public void setMemPrice(BigDecimal memPrice) {
         this.memPrice = memPrice;
     }
+
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -203,6 +225,7 @@ public class Product implements Serializable {
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
+
     public LocalDateTime getUpdateTime() {
         return updateTime;
     }
@@ -210,6 +233,7 @@ public class Product implements Serializable {
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
+
     public Integer getCreateBy() {
         return createBy;
     }
@@ -217,6 +241,7 @@ public class Product implements Serializable {
     public void setCreateBy(Integer createBy) {
         this.createBy = createBy;
     }
+
     public Integer getUpdateBy() {
         return updateBy;
     }
@@ -224,6 +249,7 @@ public class Product implements Serializable {
     public void setUpdateBy(Integer updateBy) {
         this.updateBy = updateBy;
     }
+
     public String getImgs() {
         return imgs;
     }
@@ -231,46 +257,28 @@ public class Product implements Serializable {
     public void setImgs(String imgs) {
         this.imgs = imgs;
     }
-    public LocalDateTime getProductDate() {
+
+    public Date getProductDate() {
         return productDate;
     }
 
-    public void setProductDate(LocalDateTime productDate) {
+    public void setProductDate(Date productDate) {
         this.productDate = productDate;
     }
-    public LocalDateTime getSuppDate() {
+
+    public Date getSuppDate() {
         return suppDate;
     }
 
-    public void setSuppDate(LocalDateTime suppDate) {
+    public void setSuppDate(Date suppDate) {
         this.suppDate = suppDate;
     }
 
     @Override
     public String toString() {
-        return "Product{" +
-            "productId=" + productId +
-            ", storeId=" + storeId +
-            ", brandId=" + brandId +
-            ", productName=" + productName +
-            ", productNum=" + productNum +
-            ", productInvent=" + productInvent +
-            ", typeId=" + typeId +
-            ", supplyId=" + supplyId +
-            ", placeId=" + placeId +
-            ", unitId=" + unitId +
-            ", introduce=" + introduce +
-            ", upDownState=" + upDownState +
-            ", inPrice=" + inPrice +
-            ", salePrice=" + salePrice +
-            ", memPrice=" + memPrice +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-            ", createBy=" + createBy +
-            ", updateBy=" + updateBy +
-            ", imgs=" + imgs +
-            ", productDate=" + productDate +
-            ", suppDate=" + suppDate +
-        "}";
+        return "Product{" + "productId=" + productId + ", storeId=" + storeId + ", brandId=" + brandId + ", " +
+                "productName=" + productName + ", productNum=" + productNum + ", productInvent=" + productInvent + "," +
+                " typeId=" + typeId + ", supplyId=" + supplyId + ", placeId=" + placeId + ", unitId=" + unitId + ", " +
+                "introduce=" + introduce + ", upDownState=" + upDownState + ", inPrice=" + inPrice + ", salePrice=" + salePrice + ", memPrice=" + memPrice + ", createTime=" + createTime + ", updateTime=" + updateTime + ", createBy=" + createBy + ", updateBy=" + updateBy + ", imgs=" + imgs + ", productDate=" + productDate + ", suppDate=" + suppDate + "}";
     }
 }
